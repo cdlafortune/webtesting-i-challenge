@@ -8,31 +8,29 @@ module.exports = {
 function success(item) {
   if (item.enhancement === 20) {
     return item;
+  } else {
+    const newItem = {
+      ...item,
+      enhancement: item.enhancement + 1
+    }
+    return newItem;
   }
-
-  const newItem = {
-    enhancement: item.enhancement + 1,
-    ...item
-  }
-  return newItem;
 };
 
 function fail(item) {
   if (item.enhancement < 15) {
-    return {durability: item.durability - 5, ...item};
-  } else if (item.enhancement >= 15 ) {
-    return {durability: item.durability - 10, ...item}
-  } else if (item.enhancement > 16) {
-    return {durability: item.durability - 10, enhancement: item.enhancement - 1, ...item}
+    return {...item, durability: item.durability - 5};
+  } else if (this.enhancement >= 15 ) {
+    return {...item, durability: item.durability - 10}
   } else {
-    return item;
+    return {...item, durability: item.durability - 10, enhancement: item.enhancement - 1}
   }
 };
 
 function repair(item) {
   const newItem = {
-    durability: 100,
-    ...item
+    ...item,
+    durability: 100
   };
   return newItem;
 };
@@ -41,6 +39,6 @@ function get(item) {
   if (item.enhancement === 0) {
     return item;
   } else {
-    return {name: `[+${item.enhancement}] ${item.name}`, ...item}
+    return {...item, name: `[+${item.enhancement}] ${item.name}`}
   };
 };
